@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 
 import SearchResults from "./search-results"
@@ -82,85 +82,7 @@ handleSetVisible = () => {
                                         value={this.state.searchTerm}
                                     />
                                 </div>
-                                {/* <div>
-                                    <h3>Model</h3>
-                                    <input
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        name="searchModel"
-                                        placeholder="Model"
-                                        value={this.state.searchModel}
-                                    />
-                                </div> */}
                             </div>
-                            {/* <div className="two-column">
-                                <div>
-                                    <h3>From Year</h3>
-                                    <input
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        name="searchYearMin"
-                                        placeholder="Ex: 2015"
-                                        value={this.state.searchYearMin}
-                                    />
-                                </div>
-
-                                <div>
-                                    <h3>To Year</h3>
-                                    <input
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        name="searchYearMax"
-                                        placeholder="Ex: 2019"
-                                        value={this.state.searchYearMax}
-                                    />
-                                </div>
-                            </div>
-                            
-                            <div className="two-column">
-                                <div>
-                                    <h3>Minimum Miles</h3>
-                                    <input
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        name="searchMilesMin"
-                                        placeholder="Ex: 50000"
-                                        value={this.state.searchMilesMin}
-                                    />
-                                </div>
-                                <div>
-                                    <h3>Maximum Miles</h3>
-                                    <input
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        name="searchMilesMax"
-                                        placeholder="Ex: 100000"
-                                        value={this.state.searchMilesMax}
-                                    />
-                                </div>
-                            </div>
-                            <div className="two-column">
-                                <div>
-                                    <h3>Minimum Price</h3>
-                                    <input
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        name="searchPriceMin"
-                                        placeholder="Ex: 11000"
-                                        value={this.state.searchPriceMin}
-                                    />
-                                </div>
-                                <div>
-                                    <h3>Maximum Price</h3>
-                                    <input
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        name="searchPriceMax"
-                                        placeholder="Ex: 13000"
-                                        value={this.state.searchPriceMax}
-                                    />
-                                </div>
-                            </div> */}
                             <div className="one-column">
                                 <button className="btn">Search</button>
                             </div> 

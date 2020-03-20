@@ -1,9 +1,5 @@
-import React, {Component, useEffect, useState} from 'react'
-import axios from "axios";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import GoogleLogin from 'react-google-login';
+import React, {Component} from 'react'
 
-import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
 export default class NavBar extends Component {
@@ -30,6 +26,10 @@ export default class NavBar extends Component {
         //     loggedInName: ""
         // })
     }
+
+    handleSignIn = () => {
+        this.props.handleSuccessfulLogin()
+    }
     
     render(){
         return (
@@ -40,15 +40,15 @@ export default class NavBar extends Component {
                             Search
                         </NavLink>
                     </div>
-                    <div className="nav-link-wrapper">
+                    {/* <div className="nav-link-wrapper">
                         <NavLink exact to="/add-names" activeClassName="nav-link-active">
                             Add User
                         </NavLink>
-                    </div>
+                    </div> */}
                     {this.props.loggedInStatus === "LOGGED_IN" ?
                     <div className="nav-link-wrapper">
                         <NavLink to="/add-names" activeClassName="nav-link-active">
-                            My Alerts
+                            Add User
                         </NavLink>
                     </div>
                     : null}
@@ -57,17 +57,17 @@ export default class NavBar extends Component {
                 <div className="right-side">
                     {this.props.loggedInStatus === "LOGGED_IN" ? (
                     <div>
-                        <h4>Welcome, {this.props.userName}</h4>
-                        <a onClick={this.handleSignOut}>
-                            Sign Out
-                        </a>
+                        {/* <h4>Welcome, {this.props.userName}</h4> */}
+                        <NavLink to="/" activeClassName="nav-link-active" onClick={() => this.handleSignOut()}>
+                            Simulate Sign Out
+                        </NavLink>
                     </div>
                     )
                     : 
-                    <div className="nav-link-wrapper">
-                        <NavLink to="/add-names" activeClassName="nav-link-active">
-                            Sign In
-                        </NavLink>
+                    <div>
+                        <a onClick={() => this.handleSignIn()}>
+                            Simulate Sign In
+                        </a>
                     </div>   
                     }
                 </div>

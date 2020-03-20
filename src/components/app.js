@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 // import GoogleLogin from 'react-google-login';
-import axios from 'axios'
-// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 
 import {
   BrowserRouter as Router,
@@ -21,14 +19,14 @@ export default class App extends Component {
     
         this.state = {
           loggedInStatus: "NOT_LOGGED_IN",
-          userName: ""
+          // userName: ""
         }
       }
 
-      handleSuccessfulLogin = (name) => {
+      handleSuccessfulLogin = () => {
         this.setState({
           loggedInStatus: "LOGGED_IN",
-          userName: name
+          // userName: name
         })
       }
     
@@ -41,29 +39,9 @@ export default class App extends Component {
       handleSuccessfulLogout = () => {
         this.setState({
           loggedInStatus: "NOT_LOGGED_IN",
-          userName: ""
+          // userName: ""
         })
-      }
-    
-    //   Not working, should check logged in status on mount
-      checkLoginStatus = () => {
-          const loggedInStatus = this.state.loggedInStatus
-    
-          if(this.state.userName && loggedInStatus === "LOGGED_IN") {
-            return loggedIn
-          }else if (this.state.userName && loggedInStatus === "NOT_LOGGED_IN") {
-            this.setState({
-              loggedInStatus: "LOGGED_IN"
-            })
-          }else if(!this.state.userName && loggedInStatus === "LOGGED_IN"){
-            this.setState({
-              loggedInStatus: "NOT_LOGGED_IN"
-            })
-          }
-      }
-    
-      componentDidMount() {
-        this.checkLoginStatus()
+        
       }
 
 render() {

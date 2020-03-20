@@ -1,5 +1,9 @@
-import React, {Component, useEffect, useState} from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
+import DropZone, { DropzoneComponent } from 'react-dropzone-component'
+
+import "../../node_modules/react-dropzone-component/styles/filepicker.css"
+import "../../node_modules/dropzone/dist/min/dropzone.min.css"
 
 export default class AddNames extends Component {
     constructor(props){
@@ -13,12 +17,14 @@ export default class AddNames extends Component {
             photoToAdd: "",
             setVisible: true
         }
+
+        this.thumbRef = React.createRef()
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log(this.state.nameToAdd, this.state.addressToAdd)
+        console.log(this.state.photoToAdd)
 
         axios
         .post('http://localhost:5000/api/User', {
@@ -29,7 +35,6 @@ export default class AddNames extends Component {
             "photo": this.state.photoToAdd
         })
         .then(data => {
-            console.log("resetting state values")
             this.setState({
                 nameToAdd:"",
                 addressToAdd:"",
@@ -43,21 +48,40 @@ export default class AddNames extends Component {
         ])
       }
 
+      handleThumbDrop =() => {
+        return {
+            addedfile: file => this.setState({ photoToAdd: file})
+        }
+    }
+
     handleChange = (event) => {
         this.setState({
           [event.target.name]: event.target.value
         });
-      }
+    }
 
-handleSetVisible = () => {
-    this.setState({ setVisible: true })
-}
+    componentConfig = () => {
+        return{
+            iconFiletypes: [".jpg", ".png"],
+            showFiletypeIcon: true,
+            postUrl: "https://httpbin.org/post"
+        }
+    }
+
+    djsConfig = () => {
+        return {
+            addRemoveLinks: true,
+            maxFiles: 1
+        }
+    }
+
+    handleSetVisible = () => {
+        this.setState({ setVisible: true })
+    }
 
     render(){
         return(
             <div className="search-page-wrapper">
-                {this.state.setVisible ? 
-                    (
                     <div className="form-wrapper">
                         <form onSubmit={this.handleSubmit} className="search-form-wrapper">
                             <div className="two-column">
@@ -108,31 +132,22 @@ handleSetVisible = () => {
                             
                             <div className="one-column">
                                 <div>
-                                    <h3>Picture</h3>
-                                    <input
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        name="photoToAdd"
-                                        placeholder=""
-                                        value={this.state.photoToAdd}
-                                    />
+                                    <h3>Profile Picture</h3>
+                                        <DropzoneComponent
+                                            ref={this.thumbRef}
+                                            config={this.componentConfig()}
+                                            djsConfig={this.djsConfig}
+                                            eventHandlers={this.handleThumbDrop()}
+                                        >
+                                                <div className="dz-message">Click to Add Photo</div>
+                                        </DropzoneComponent>
                                 </div>
                             </div>
                             <div className="one-column">
-                                <button className="btn">Search</button>
+                                <button className="btn">Add</button>
                             </div> 
                         </form>
-                    </div>)
-                    :
-                    (
-                    <div className="one-column">
-                        <div className="results-container">
-                            {this.state.searchResults.length > 0 ? <SearchResults data={this.state.searchResults} /> : <h2>No users that match your criteria, please enter a different term</h2>}
-                            <button className="new-search-btn" onClick={() => this.handleSetVisible()}>New Search</button>
-                        </div>
                     </div>
-                    )
-            }
             </div>
         )
     }

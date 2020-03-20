@@ -11,7 +11,7 @@ const SearchResults = (props) => {
                     </div>
                     <div className="search-result-user-details">
                         <div>{`${searchResult.interests}`}</div>
-                        <div>{`${searchResult.photo}`}</div>
+                        <div className="profile-pic"><img src={searchResult.photo} /></div>
                     </div>
                 </div>
             </div>
