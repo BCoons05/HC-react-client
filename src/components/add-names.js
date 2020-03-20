@@ -18,13 +18,15 @@ export default class AddNames extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
+        console.log(this.state.nameToAdd, this.state.addressToAdd)
+
         axios
         .post('http://localhost:5000/api/User', {
-            Name: this.state.nameToAdd,
-            Address: this.state.addressToAdd,
-            Age: this.state.ageToAdd,
-            Interests: this.state.interestsToAdd,
-            Photo: this.state.photoToAdd
+            "name": this.state.nameToAdd,
+            "address": this.state.addressToAdd,
+            "age": parseInt(this.state.ageToAdd),
+            "interests": this.state.interestsToAdd,
+            "photo": this.state.photoToAdd
         })
         .then(data => {
             console.log("resetting state values")
@@ -33,8 +35,7 @@ export default class AddNames extends Component {
                 addressToAdd:"",
                 ageToAdd: "",
                 interestsToAdd: "",
-                Photo: "",
-                setVisible: false
+                photoToAdd: "",
             })
         })
         .catch(err => [

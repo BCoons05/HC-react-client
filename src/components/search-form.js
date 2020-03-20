@@ -28,6 +28,7 @@ export default class SearchForm extends Component {
         .then(response => {
             
             response.data.forEach(user => {
+                // console.log(user)
                 this.checkTerm(user)
             })
         })
@@ -50,16 +51,13 @@ export default class SearchForm extends Component {
       }
 
 checkTerm = (user) => {
-    if(this.state.searchTerm && user.Name.toLowerCase().includes(this.state.searchTerm.toLowerCase())){
+    if(this.state.searchTerm && user.name.includes(this.state.searchTerm)){
         this.setState({
             searchResults: [user].concat(this.state.searchResults)
         })
-    } else if(this.state.searchTerm && user.Name.toLowerCase().includes(this.state.searchTerm.toLowerCase()) == false){
+    } else if(this.state.searchTerm && user.name.includes(this.state.searchTerm == false)){
         null
     } 
-    else {
-        this.checkYear(car)
-    }
 }
 
 handleSetVisible = () => {
