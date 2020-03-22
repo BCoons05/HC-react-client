@@ -6,13 +6,16 @@ const SearchResults = (props) => {
         return(
             <div key={searchResult.id} className="search-result-wrapper">
                 <div className="search-result-content">
+                    <div className="profile-pic"><img src={searchResult.photo} /></div>
                     <div className="search-result-user-header">
-                        <h2>{searchResult.name} {searchResult.address} {searchResult.age}</h2>
+                        <h2>{searchResult.name}</h2>
+                        <div>Age: {searchResult.age}</div>
+                        <div className="search-result-user-details">
+                            <div>Address: {searchResult.address}</div>
+                        </div>
+                        <div>Interests: {searchResult.interests}</div>
                     </div>
-                    <div className="search-result-user-details">
-                        <div>{`${searchResult.interests}`}</div>
-                        <div className="profile-pic"><img src={searchResult.photo} /></div>
-                    </div>
+                    <div className="delete-container"><button className="delete-btn" onClick={() => props.deleteUser(searchResult.id)}>X</button></div>
                 </div>
             </div>
         )

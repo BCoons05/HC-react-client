@@ -14,7 +14,8 @@ export default class AddNames extends Component {
             addressToAdd:"",
             ageToAdd: "",
             interestsToAdd: "",
-            photoToAdd: "",
+            photoToAdd: "https://source.unsplash.com/random",
+            photoView: "",
             setVisible: true
         }
 
@@ -24,7 +25,7 @@ export default class AddNames extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log(this.state.photoToAdd)
+        console.log(this.state.nameToAdd, this.state.photoToAdd)
 
         axios
         .post('http://localhost:5000/api/User', {
@@ -50,7 +51,7 @@ export default class AddNames extends Component {
 
       handleThumbDrop =() => {
         return {
-            addedfile: file => this.setState({ photoToAdd: file})
+            addedfile: file => this.setState({ photoView: file})
         }
     }
 
@@ -75,9 +76,28 @@ export default class AddNames extends Component {
         }
     }
 
-    handleSetVisible = () => {
-        this.setState({ setVisible: true })
-    }
+    // buildForm = () => {
+    //     let formData = new FormData()
+
+    //     formData.append("name", this.state.nameToAdd)
+    //     formData.append("address", this.state.addressToAdd)
+    //     formData.append("age", parseInt(this.state.ageToAdd))
+    //     formData.append("interests", this.state.interestsToAdd)
+
+    //     if(this.state.photoToAdd){
+    //         formData.append("photo", this.state.photoToAdd)
+    //     }
+        
+    //     // for(let value of formData.values()){
+    //     //     console.log(value)
+    //     // }
+
+    //     return formData
+    // }
+
+    // handleSetVisible = () => {
+    //     this.setState({ setVisible: true })
+    // }
 
     render(){
         return(
@@ -144,7 +164,7 @@ export default class AddNames extends Component {
                                 </div>
                             </div>
                             <div className="one-column">
-                                <button className="btn">Add</button>
+                                <button className="btn" type="submit">Add</button>
                             </div> 
                         </form>
                     </div>

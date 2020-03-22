@@ -50,19 +50,30 @@ export default class SearchForm extends Component {
         });
       }
 
-checkTerm = (user) => {
-    if(this.state.searchTerm && user.name.includes(this.state.searchTerm)){
-        this.setState({
-            searchResults: [user].concat(this.state.searchResults)
-        })
-    } else if(this.state.searchTerm && user.name.includes(this.state.searchTerm == false)){
-        null
-    } 
-}
+    checkTerm = (user) => {
+        // console.log(user.name, this.state.searchTerm)
+        if(this.state.searchTerm && user.name.includes(this.state.searchTerm)){
+            this.setState({
+                searchResults: [user].concat(this.state.searchResults)
+            })
+        } else if(this.state.searchTerm && user.name.includes(this.state.searchTerm == false)){
+            null
+        } else { null }
+    }
 
-handleSetVisible = () => {
-    this.setState({ setVisible: true })
-}
+    deleteUser = id => {
+        axios
+        .delete(`http://localhost:5000/api/User/${id}`)
+        .then(
+            this.setState({searchResults: this.state.searchResults.filter(result => {
+                return result.id !== id
+        })}))
+        .catch(error => console.log("delete user error: ", error))
+    }
+
+    handleSetVisible = () => {
+        this.setState({ setVisible: true })
+    }
 
     render(){
         return(
@@ -92,7 +103,7 @@ handleSetVisible = () => {
                     (
                     <div className="one-column">
                         <div className="results-container">
-                            {this.state.searchResults.length > 0 ? <SearchResults data={this.state.searchResults} /> : <h2>No users that match your criteria, please enter a different name or term</h2>}
+                            {this.state.searchResults.length > 0 ? <SearchResults data={this.state.searchResults} deleteUser={this.deleteUser} /> : <h2>No users that match your criteria, please enter a different name or term</h2>}
                             <button className="new-search-btn" onClick={() => this.handleSetVisible()}>New Search</button>
                         </div>
                     </div>
