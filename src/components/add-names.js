@@ -25,8 +25,6 @@ export default class AddNames extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log(this.state.nameToAdd, this.state.photoToAdd)
-
         axios
         .post('http://localhost:5000/api/User', {
             "name": this.state.nameToAdd,
@@ -41,7 +39,6 @@ export default class AddNames extends Component {
                 addressToAdd:"",
                 ageToAdd: "",
                 interestsToAdd: "",
-                photoToAdd: "",
             })
         })
         .catch(err => [

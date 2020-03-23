@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 import SearchResults from "./search-results"
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+library.add(faSpinner)
 
 export default class SearchForm extends Component {
     constructor(props){
@@ -10,8 +15,15 @@ export default class SearchForm extends Component {
         this.state={
             searchTerm:"",
             searchResults: [],
-            setVisible: true
+            setVisible: true,
+            isLoading: true
         }
+    }
+
+    stopLoading = () => {
+        this.setState({
+            isLoading: false
+        })
     }
 
     handleSubmit = (event) => {
@@ -23,12 +35,13 @@ export default class SearchForm extends Component {
             })
         }
 
+        setTimeout(this.stopLoading, 1000)
+
         axios
         .get('http://localhost:5000/api/User')
         .then(response => {
             
             response.data.forEach(user => {
-                // console.log(user)
                 this.checkTerm(user)
             })
         })
@@ -36,7 +49,7 @@ export default class SearchForm extends Component {
             console.log("resetting state values")
             this.setState({
                 searchTerm: "",
-                setVisible: false
+                setVisible: false,
             })
         })
         .catch(err => [
@@ -51,7 +64,6 @@ export default class SearchForm extends Component {
       }
 
     checkTerm = (user) => {
-        // console.log(user.name, this.state.searchTerm)
         if(this.state.searchTerm && user.name.includes(this.state.searchTerm)){
             this.setState({
                 searchResults: [user].concat(this.state.searchResults)
@@ -78,6 +90,7 @@ export default class SearchForm extends Component {
     render(){
         return(
             <div className="search-page-wrapper">
+                
                 {this.state.setVisible ? 
                     (
                     <div className="form-wrapper">
@@ -100,6 +113,15 @@ export default class SearchForm extends Component {
                         </form>
                     </div>)
                     :
+                    this.state.isLoading ? 
+                        (
+                        <div className="one-column">
+                                <div className="content-loader">
+                                    <FontAwesomeIcon icon="spinner" spin />
+                                </div>
+                        </div>
+                        )
+                    :
                     (
                     <div className="one-column">
                         <div className="results-container">
@@ -108,7 +130,7 @@ export default class SearchForm extends Component {
                         </div>
                     </div>
                     )
-            }
+                }
             </div>
         )
     }
